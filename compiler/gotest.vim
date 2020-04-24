@@ -7,9 +7,9 @@ let g:current_compiler = 'gotest'
 let s:save_cpo = &cpoptions
 set cpoptions-=C
 
-let &l:makeprg = printf('go test %s %s',
+let &l:makeprg = gopher#str#fold_space(printf('go test %s %s',
       \ gopher#system#join(gopher#bufsetting('gopher_build_flags', [])),
-      \ gopher#system#join(gopher#go#current_test()))
+      \ gopher#system#join(gopher#go#current_test())))
 
 let s:goroot = system('go env s:goroot')[:-2]
 
