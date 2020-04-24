@@ -5,8 +5,10 @@ let g:current_compiler = 'go'
 let s:save_cpo = &cpoptions
 set cpoptions-=C
 
-let &l:makeprg = printf('go install %s %s',
+let &l:makeprg = printf('go install %s %s %s',
       \ gopher#system#join(gopher#bufsetting('gopher_build_flags', [])),
+      \ gopher#bufsetting('gopher_build_tags', -1) is# -1 ? '' :
+      \     gopher#system#join(['-tags', join(gopher#bufsetting('gopher_build_tags', []), ',')]),
       \ gopher#bufsetting('gopher_install_package', ''))
 
 setl errorformat =%-G#\ %.%#                   " Ignore lines beginning with '#' ('# command-line-arguments' line sometimes appears?)
